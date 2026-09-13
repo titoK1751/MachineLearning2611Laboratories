@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboratorio 2 - Complejidad y búsqueda de hiperparámetros</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 32px;
+      line-height: 1.6;
+      color: #1f2937;
+    }
+    h1, h2, h3 {
+      color: #0f172a;
+    }
+    .note {
+      background: #f8fafc;
+      border-left: 4px solid #2563eb;
+      padding: 12px 16px;
+      margin: 20px 0;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: Consolas, monospace;
+    }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Laboratorio 2 - Complejidad y búsqueda de hiperparámetros</h1>
+
+  <div class="note">
+    Este documento HTML contiene la parte técnica del laboratorio implementada. La interpretación final, las respuestas a las preguntas y la discusión del punto 6 quedan libres para que tu compañero complete ese análisis.
+  </div>
+
+  <h2>1. Carga de librerías y preparación del entorno</h2>
+  <pre><code>import importlib.util
+from pathlib import Path
+
+dataset_path = Path('..') / 'Lab1' / 'data' / 'Datos Lab 1.csv'
+print('Dataset:', dataset_path.resolve())
+
+module_path = Path('implementacion_lab2.py').resolve()
+spec = importlib.util.spec_from_file_location('implementacion_lab2', module_path)
+impl = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(impl)
+print('Implementación cargada:', module_path.name)</code></pre>
+
+  <h2>2. Ejecución de la implementación técnica</h2>
+  <pre><code>implementation = impl.run_implementation(str(Path('..') / 'Lab1' / 'data' / 'Datos Lab 1.csv'))
+print('Modelo ganador:', implementation['best_model_name'])
+print('Métricas test:', implementation['test_metrics'])
+print('Filas en comparación:', len(implementation['comparison']))
+print('Filas en validación:', len(implementation['validation_curve']))</code></pre>
+
+  <h2>3. Comparación de modelos</h2>
+  <pre><code>implementation['comparison']</code></pre>
+
+  <h2>4. Curva de validación polinomial</h2>
+  <pre><code>implementation['validation_curve']</code></pre>
+
+  <h2>5. Métricas del mejor modelo en test</h2>
+  <pre><code>for metric, value in implementation['test_metrics'].items():
+    print(f'{metric}: {value:.6f}')</code></pre>
+
+  <h2>6. Intervalos de confianza bootstrap</h2>
+  <pre><code>for metric, values in implementation['bootstrap_ci'].items():
+    print(metric.upper(), values)</code></pre>
+
+  <div class="note">
+    <strong>Espacio para completar:</strong>
+    <ul>
+      <li>Respuesta a las preguntas del análisis cuantitativo.</li>
+      <li>Respuesta a las preguntas del análisis cualitativo.</li>
+      <li>Reflexión conceptual del punto 6 y del documento.</li>
+      <li>Interpretación final del mejor modelo y su estabilidad.</li>
+    </ul>
+  </div>
+</body>
+</html>
